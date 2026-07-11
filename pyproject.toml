@@ -13,6 +13,7 @@ drf-yasg = "^1.21.15"
 djangorestframework-simplejwt = "^5.5.1"
 python-dotenv = "^1.2.2"
 psycopg2 = "^2.9.12"
+django-cors-headers = "^4.9.0"
 
 
 [tool.poetry.group.lint.dependencies]
