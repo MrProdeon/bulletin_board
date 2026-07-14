@@ -15,6 +15,7 @@ python-dotenv = "^1.2.2"
 psycopg2 = "^2.9.12"
 django-cors-headers = "^4.9.0"
 pillow = "^12.3.0"
+djoser = "^2.3.3"
 
 
 [tool.poetry.group.lint.dependencies]
