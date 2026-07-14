@@ -41,5 +41,19 @@ urlpatterns = [
     path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
 
     path("users/", include("users.urls", namespace=UsersConfig.name)),
+    path("api/auth/", include("djoser.urls")),
+    path("api/auth/", include("djoser.urls.jwt")),
 
 ]
+
+# --- Djoser + SimpleJWT: доступные эндпоинты ---
+# POST    /api/auth/users/                        — Регистрация
+# GET     /api/auth/users/me/                      — Текущий пользователь
+# PUT/PATCH /api/auth/users/me/                    — Изменение профиля
+# POST    /api/auth/users/set_password/            — Смена пароля (авторизован)
+# POST    /api/auth/users/reset_password/          — Запрос сброса пароля (письмо на email)
+# POST    /api/auth/users/reset_password_confirm/  — Подтверждение сброса (uid + token + новый пароль)
+#
+# POST    /api/auth/jwt/create/                    — Логин (access/refresh токены)
+# POST    /api/auth/jwt/refresh/                   — Обновить access-токен
+# POST    /api/auth/jwt/verify/                    — Проверить токен
