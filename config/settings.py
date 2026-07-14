@@ -44,7 +44,11 @@ INSTALLED_APPS = [
     "ads",
     "reviews",
     "drf_yasg",
-    "corsheaders"
+    "corsheaders",
+    "djoser",
+    "rest_framework",
+    "rest_framework.authtoken",
+
 ]
 
 MIDDLEWARE = [
@@ -151,3 +155,34 @@ SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
 }
+
+DJOSER = {
+    "LOGIN_FIELD": "email",
+
+    "USER_CREATE_PASSWORD_RETYPE": False,
+    "SET_PASSWORD_RETYPE": False,
+    "PASSWORD_RESET_CONFIRM_RETYPE": False,
+
+    "SEND_ACTIVATION_EMAIL": False,
+    "SEND_CONFIRMATION_EMAIL": False,
+
+    # Ссылки, которые будут подставлены в письма — ведут на ваш фронтенд
+    "PASSWORD_RESET_CONFIRM_URL": "password-reset/{uid}/{token}",
+    "USERNAME_RESET_CONFIRM_URL": "email-reset/{uid}/{token}",
+    "ACTIVATION_URL": "activate/{uid}/{token}",
+
+    "SERIALIZERS": {
+        "user_create": "users.serializers.CustomUserCreateSerializer",
+        "current_user": "users.serializers.CustomUserSerializer",
+        "user": "users.serializers.CustomUserSerializer",
+    },
+}
+
+EMAIL_BACKEND = os.getenv("EMAIL_BACKEND")
+EMAIL_HOST = os.getenv("EMAIL_HOST")
+EMAIL_PORT = int(os.getenv("EMAIL_PORT"))
+EMAIL_USE_TLS = os.getenv("EMAIL_USE_TLS", "False").lower() == "true"
+EMAIL_USE_SSL = os.getenv("EMAIL_USE_SSL", "False").lower() == "true"
+EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
+DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL")
