@@ -25,10 +25,10 @@ class CustomUserManager(BaseUserManager):
 
 class CustomUser(AbstractUser):
     ROLE_CHOICES = [
-        {
-            "user" : "Пользователь",
-            "admin" : "Администратор"
-        }
+
+        ("user", "Пользователь"),
+        ("admin", "Администратор")
+
     ]
 
     email = models.EmailField(unique=True, verbose_name="Электронная почта")
@@ -36,7 +36,7 @@ class CustomUser(AbstractUser):
     last_name = models.CharField(max_length=100, verbose_name="Фамилия")
     phone = models.CharField(max_length=20, verbose_name="Номер телефона")
     image = models.ImageField(upload_to="user_photos/", verbose_name="Фотография пользователя", null=True, blank=True)
-    role = models.CharField(choices=ROLE_CHOICES, default="Пользователь", verbose_name="Роль")
+    role = models.CharField(choices=ROLE_CHOICES, default="user", verbose_name="Роль")
 
     def __str__(self):
         return self.email
