@@ -3,6 +3,9 @@ from rest_framework.urls import app_name
 from rest_framework_simplejwt.views import TokenRefreshView
 from users.apps import UsersConfig
 from rest_framework.routers import DefaultRouter
+
+from users.views import MyUserViewSet
+
 #from users.views import UserCreateAPIView, MyTokenObtainPairView
 
 app_name = UsersConfig.name
