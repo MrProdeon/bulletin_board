@@ -21,6 +21,8 @@ from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 from users.apps import UsersConfig
+from ads.apps import AdsConfig
+from reviews.apps import ReviewsConfig
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -43,6 +45,9 @@ urlpatterns = [
     path("users/", include("users.urls", namespace=UsersConfig.name)),
     path("api/auth/", include("djoser.urls")),
     path("api/auth/", include("djoser.urls.jwt")),
+
+    path("ads/", include("ads.urls", namespace=AdsConfig.name)),
+    path("reviews/", include("reviews.urls", namespace=ReviewsConfig.name)),
 
 ]
 
