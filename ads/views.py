@@ -4,6 +4,7 @@ from rest_framework.viewsets import ModelViewSet
 
 from ads.filters import AdvertisementFilter
 from ads.models import Advertisement
+from ads.pagination import AdsPagination
 from ads.serializers import AdsSerializer
 
 
@@ -14,3 +15,6 @@ class AdsViewSet(ModelViewSet):
     serializer_class = AdsSerializer
     filter_backends = [DjangoFilterBackend]
     filterset_class = AdvertisementFilter
+    pagination_class = AdsPagination
+
+
