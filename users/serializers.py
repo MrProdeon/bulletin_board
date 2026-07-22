@@ -9,8 +9,8 @@ class CustomUserCreateSerializer(UserCreateSerializer):
         fields = "__all__"
 
 
-class CustomUserSerializer(UserSerializer):
-    class Meta(UserSerializer.Meta):
+class CustomUserSerializer(ModelSerializer):
+    class Meta:
         model = CustomUser
         fields = "__all__"
 
