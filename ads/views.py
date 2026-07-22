@@ -29,3 +29,5 @@ class AdsViewSet(ModelViewSet):
             return [IsAuthenticated()]
         elif self.action in ["update", "partial_update", "destroy"]:
             return [IsAuthenticated(), IsOwnerOrAdmin()]
+        else:
+            return [IsAuthenticated()]

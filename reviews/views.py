@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import ModelViewSet
 
 from permissions import IsOwnerOrAdmin
@@ -20,3 +21,5 @@ class ReviewViewSet(ModelViewSet):
             return [IsAuthenticated()]
         elif self.action in ["update", "partial_update", "destroy"]:
             return [IsAuthenticated(), IsOwnerOrAdmin()]
+        else:
+            return [IsAuthenticated()]
