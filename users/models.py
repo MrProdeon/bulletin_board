@@ -31,6 +31,7 @@ class CustomUser(AbstractUser):
 
     ]
 
+    username = None
     email = models.EmailField(unique=True, verbose_name="Электронная почта")
     first_name = models.CharField(max_length=100, verbose_name="Имя")
     last_name = models.CharField(max_length=100, verbose_name="Фамилия")
