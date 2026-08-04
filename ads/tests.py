@@ -13,6 +13,12 @@ class AdvertisementAPITestCase(APITestCase):
                                                    last_name="adduser",
                                                    phone="88003837363")
 
+        self.second_user = CustomUser.objects.create_user(email="secondtestadduser@gmail.com",
+                                                   password="secondtestaddduser",
+                                                   first_name="secondtest",
+                                                   last_name="adduser",
+                                                   phone="88002783726")
+
         self.add = Advertisement.objects.create(title="test_add",
                                                 price=100,
                                                 description="test_description",
@@ -21,10 +27,15 @@ class AdvertisementAPITestCase(APITestCase):
         self.second_add = Advertisement.objects.create(title="test_add2",
                                                 price=1002,
                                                 description="test_description2",
-                                                author=self.user)
+                                                author=self.second_user)
 
     def test_current_user_ads(self):
         """Тесты с объявлениями текущего пользователя"""
+
+        # Тест просмотра чужого объявления без авторизации
+        url_retrieve = reverse("ads:ad-detail", kwargs={"pk" : self.add.pk})
+        retrieve_response = self.client.get(url_retrieve)
+        self.assertEqual(retrieve_response.status_code, status.HTTP_401_UNAUTHORIZED)
 
         # Тест получения списка объявлений
         url_list = reverse("ads:ad-list")
@@ -61,6 +72,26 @@ class AdvertisementAPITestCase(APITestCase):
         # Тест удаления объявления
         response_delete = self.client.delete(url_detail)
         self.assertEqual(response_delete.status_code, status.HTTP_204_NO_CONTENT)
+
+    def test_other_user_ads(self):
+
+        #Тест попытки обновить/удалить чужое объявление
+        url_update = reverse("ads:ad-detail", kwargs={"pk" : self.second_add.pk})
+        patch_response = self.client.patch(url_update, data={"title" : "test_patch"})
+        self.assertEqual(patch_response.status_code, status.HTTP_401_UNAUTHORIZED)
+
+        put_response = self.client.put(url_update, data={
+            "title" : "test_put",
+            "price" : 500,
+            "description" : "testput"
+        })
+        self.assertEqual(put_response.status_code, status.HTTP_401_UNAUTHORIZED)
+
+        delete_response = self.client.delete(url_update)
+        self.assertEqual(delete_response.status_code, status.HTTP_401_UNAUTHORIZED)
+
+
+
 
 
 
