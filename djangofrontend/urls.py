@@ -15,4 +15,6 @@ urlpatterns = [
     path("login/", CustomLoginView.as_view(), name="login"),
     path("logout/", CustomLogoutView.as_view(), name="logout")
 
+    #Нужно добавить редактирование/удаление объявлений для владельца, страницу только со своими
+    # объявлениями, возможность оставлять отзывы, удалять свои отзывы самому или модеру
 ]
