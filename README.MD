@@ -26,7 +26,7 @@ Backend доски объявлений на Django REST Framework. (Работ�
 
 ## Контейнер для базы данных, но приложение локально (для ускорения разработки)
 
-1) Клонируйте репозиторий ```git clone https://github.com/MrProdeon/bulletin_board.git```
+1) Клонируйте репозиторий ```git clone -b develop https://github.com/MrProdeon/bulletin_board.git```
 2) Установите poetry ```pip install poetry```
 3) Установите зависимости ```poetry install --no-root```
 4) Заполните .env файл по примеру из .env.template
