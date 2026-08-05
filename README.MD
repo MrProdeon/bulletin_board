@@ -21,17 +21,16 @@ Backend доски объявлений на Django REST Framework. Позвол
 # Требования к установке
 - Python 3.12+
 - Poetry
-- PostgreSQL (Для локального запуска без Docker)
-- Docker (В случае запуска через Docker)
+- Docker
 # Установка проекта
 
-## Локально
+## Контейнер для базы данных, но приложение локально (для ускорения разработки)
 
 1) Клонируйте репозиторий ```git clone https://github.com/MrProdeon/bulletin_board.git```
 2) Установите poetry ```pip install poetry```
 3) Установите зависимости ```poetry install --no-root```
 4) Заполните .env файл по примеру из .env.template
-5) Выполните миграции ```python manage.py migrate```
+5) Запустите Docker Desktop и выполните команду ```docker-compose up -d db```
 6) Запустите локальный сервер ```python manage.py runserver```
 7) Локальный сервер готов принимать запросы по адресу http://127.0.0.1:8000/
 
