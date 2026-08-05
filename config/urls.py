@@ -23,6 +23,7 @@ from drf_yasg import openapi
 from users.apps import UsersConfig
 from ads.apps import AdsConfig
 from reviews.apps import ReviewsConfig
+from djangofrontend.apps import DjangofrontendConfig
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -49,6 +50,7 @@ urlpatterns = [
     path("ads/", include("ads.urls", namespace=AdsConfig.name)),
     path("reviews/", include("reviews.urls", namespace=ReviewsConfig.name)),
 
+    path("frontend/", include("djangofrontend.urls", namespace=DjangofrontendConfig.name))
 ]
 
 # --- Djoser + SimpleJWT: доступные эндпоинты ---
