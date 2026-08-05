@@ -13,7 +13,7 @@ import os
 from datetime import timedelta
 from pathlib import Path
 import dotenv
-from django.conf.global_settings import AUTH_USER_MODEL
+from django.conf.global_settings import AUTH_USER_MODEL, LOGIN_REDIRECT_URL
 
 dotenv.load_dotenv()
 
@@ -187,3 +187,5 @@ EMAIL_USE_SSL = os.getenv("EMAIL_USE_SSL", "False").lower() == "true"
 EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
 DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL")
+
+LOGIN_REDIRECT_URL = "djangofrontend:ads-list"
