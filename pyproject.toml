@@ -18,6 +18,9 @@ djoser = "^2.3.3"
 django-filter = "^26.1"
 psycopg2-binary = "^2.9.12"
 coverage = "^7.15.2"
+pytest = "^9.1.1"
+pytest-django = "^4.13.0"
+pytest-cov = "^7.1.0"
 
 
 [tool.poetry.group.lint.dependencies]
@@ -28,5 +31,9 @@ isort = "^8.0.1"
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "config.settings"
+python_files = ["tests.py", "test_*.py"]
 
 
