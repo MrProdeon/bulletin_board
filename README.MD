@@ -63,17 +63,21 @@ Backend доски объявлений на Django REST Framework. (Работ�
 - Redoc - http://your_ip_adress/redoc/
 
 # Тесты
-Для проекта были написаны тесты. Правила для запуска тестов описаны в файле .coveragerc  
-Запуск тестов работает на приложения users, ads, reviews
-- Запуск всех тестов для перечисленных выше приложений ```python manage.py test```
-- Запуск тестов конкретного приложения ```python manage.py (имя приложения, например, users)```
-- Запуск тестов с отчетом о покрытии :
-```python
-coverage run manage.py test
-coverage report
-coverage html
-# Отчет можно просмотреть в папке htmlcov -> index.html
+ 
+Для проекта были написаны тесты с использованием `pytest` и `pytest-django`.
+Правила для запуска тестов описаны в файле `.coveragerc`.
+Тесты покрывают приложения `users`, `ads`, `reviews`.
+ 
+- Запуск всех тестов ```pytest```
+- Запуск тестов конкретного приложения ```pytest users``` (например, `ads` или `reviews`)
+- Запуск конкретного теста ```pytest users/test_users_pytest.py::TestCustomUserAPI::test_users_list```
+- Запуск с подробным выводом ```pytest -v```
+Запуск тестов с отчётом о покрытии:
 ```
+pytest --cov=users --cov=ads --cov=reviews --cov-report=html
+```
+Отчёт можно просмотреть в папке `htmlcov` → `index.html`
+ 
 
 Для ручного тестирования вы можете использовать админку.  
 Чтобы попасть в неё - вам необходимо создать суперпользователя с помощью команды
