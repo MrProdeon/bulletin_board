@@ -71,7 +71,8 @@ Backend доски объявлений на Django REST Framework. (Работ�
 - Запуск всех тестов ```pytest```
 - Запуск тестов конкретного приложения ```pytest users``` (например, `ads` или `reviews`)
 - Запуск конкретного теста ```pytest users/test_users_pytest.py::TestCustomUserAPI::test_users_list```
-- Запуск с подробным выводом ```pytest -v```
+- Запуск с подробным выводом ```pytest -v```  
+
 Запуск тестов с отчётом о покрытии:
 ```
 pytest --cov=users --cov=ads --cov=reviews --cov-report=html
