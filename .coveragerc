@@ -1,0 +1,17 @@
+# .coveragerc
+[run]
+source = users, ads, reviews
+omit =
+    */migrations/*
+    */tests.py
+    */admin.py
+    manage.py
+    */settings.py
+    */wsgi.py
+    */asgi.py
+
+[report]
+exclude_lines =
+    pragma: no cover
+    def __repr__
+    raise NotImplementedError

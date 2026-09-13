@@ -1,0 +1,66 @@
+"""
+URL configuration for config project.
+
+The `urlpatterns` list routes URLs to views. For more information please see:
+    https://docs.djangoproject.com/en/6.0/topics/http/urls/
+Examples:
+Function views
+    1. Add an import:  from my_app import views
+    2. Add a URL to urlpatterns:  path('', views.home, name='home')
+Class-based views
+    1. Add an import:  from other_app.views import Home
+    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
+Including another URLconf
+    1. Import the include() function: from django.urls import include, path
+    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
+"""
+
+from django.contrib import admin
+from django.urls import path, include
+from rest_framework import permissions
+from drf_yasg.views import get_schema_view
+from drf_yasg import openapi
+from users.apps import UsersConfig
+from ads.apps import AdsConfig
+from reviews.apps import ReviewsConfig
+from djangofrontend.apps import DjangofrontendConfig
+
+schema_view = get_schema_view(
+    openapi.Info(
+        title="API Documentation",
+        default_version='v1',
+        description="Your API description",
+        terms_of_service="https://www.example.com/policies/terms/",
+        contact=openapi.Contact(email="contact@example.com"),
+        license=openapi.License(name="BSD License"),
+    ),
+    public=True,
+    permission_classes=(permissions.AllowAny,),
+)
+
+urlpatterns = [
+    path("admin/", admin.site.urls),
+    path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+    path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
+
+    path("users/", include("users.urls", namespace=UsersConfig.name)),
+    path("api/auth/", include("djoser.urls")),
+    path("api/auth/", include("djoser.urls.jwt")),
+
+    path("ads/", include("ads.urls", namespace=AdsConfig.name)),
+    path("reviews/", include("reviews.urls", namespace=ReviewsConfig.name)),
+
+    path("frontend/", include("djangofrontend.urls", namespace=DjangofrontendConfig.name))
+]
+
+# --- Djoser + SimpleJWT: доступные эндпоинты ---
+# POST    /api/auth/users/                        — Регистрация
+# GET     /api/auth/users/me/                      — Текущий пользователь
+# PUT/PATCH /api/auth/users/me/                    — Изменение профиля
+# POST    /api/auth/users/set_password/            — Смена пароля (авторизован)
+# POST    /api/auth/users/reset_password/          — Запрос сброса пароля (письмо на email)
+# POST    /api/auth/users/reset_password_confirm/  — Подтверждение сброса (uid + token + новый пароль)
+#
+# POST    /api/auth/jwt/create/                    — Логин (access/refresh токены)
+# POST    /api/auth/jwt/refresh/                   — Обновить access-токен
+# POST    /api/auth/jwt/verify/                    — Проверить токен

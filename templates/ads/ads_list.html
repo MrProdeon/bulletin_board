@@ -1,0 +1,171 @@
+{% extends "base.html" %}
+
+{% block title %}Доска объявлений{% endblock %}
+
+{% block extra_css %}
+<style>
+    .page-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+
+    .page-head h1 {
+      font-size: 28px;
+      margin: 4px 0 0;
+    }
+
+    .ads-count {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: var(--ink-soft);
+    }
+
+    .ads-grid {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .ad-card {
+      display: flex;
+      flex-direction: column;
+      padding: 20px;
+      transition: border-color .15s ease, transform .15s ease;
+    }
+
+    .ad-card:hover {
+      border-color: var(--sky);
+      transform: translateY(-2px);
+    }
+
+    .ad-card__top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+
+    .ad-card__title {
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: 17px;
+      color: var(--navy);
+      line-height: 1.3;
+      margin: 0;
+    }
+
+    .ad-card__price {
+      flex-shrink: 0;
+      font-family: var(--font-mono);
+      font-weight: 500;
+      font-size: 14.5px;
+      color: var(--navy);
+      background: var(--sky-soft);
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 4px 9px;
+      white-space: nowrap;
+    }
+
+    .ad-card__description {
+      font-size: 14px;
+      color: var(--ink-soft);
+      line-height: 1.55;
+      margin: 0 0 16px;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .ad-card__meta {
+      margin-top: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      padding-top: 14px;
+      border-top: 1px solid var(--line);
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--ink-soft);
+    }
+
+    .ad-card__author {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      min-width: 0;
+    }
+
+    .ad-card__author-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--sky);
+      flex-shrink: 0;
+    }
+
+    .ad-card__author-name {
+      color: var(--ink);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 64px 24px;
+      color: var(--ink-soft);
+      font-family: var(--font-mono);
+      font-size: 14px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="page-head">
+    <div>
+        <span class="eyebrow">каталог</span>
+        <h1>Объявления</h1>
+    </div>
+    <span class="ads-count">{{ ads|length }} размещено</span>
+</div>
+
+{% if ads %}
+<ul class="ads-grid">
+    {% for ad in ads %}
+    <li class="ad-card surface">
+        <a href="{% url 'djangofrontend:ads-detail' ad.pk %}">
+            <div class="ad-card__top">
+                <h2 class="ad-card__title">{{ ad.title }}</h2>
+                <span class="ad-card__price">{{ ad.price }} ₽</span>
+            </div>
+
+            <p class="ad-card__description">{{ ad.description }}</p>
+
+            <div class="ad-card__meta">
+            <span class="ad-card__author">
+                <span class="ad-card__author-dot"></span>
+                <span class="ad-card__author-name">{{ ad.author.first_name }} {{ ad.author.last_name }}</span>
+            </span>
+                <time datetime="{{ ad.created_at|date:'c' }}">{{ ad.created_at|date:"d.m.Y H:i" }}</time>
+            </div>
+        </a>
+    </li>
+    {% endfor %}
+</ul>
+{% else %}
+<div class="empty-state surface">
+    Объявлений пока нет — станьте первым, кто что-нибудь разместит.
+</div>
+{% endif %}
+{% endblock %}
